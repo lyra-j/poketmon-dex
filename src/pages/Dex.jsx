@@ -4,23 +4,30 @@ import MOCK_DATA from "../data/MOCK_DATA";
 const Dex = () => {
   const [selectedPokemon, setSelectedPokemon] = useState([]);
 
-  // 포켓몬 선택하여 덱에 추가
+  // 포켓몬 대쉬보드에 추가
   const handleAddPokemon = (pokemon) => {
-    const isAlreadySelectedOne = selectedPokemon.find((item) => {
+    const isSelected = selectedPokemon.find((item) => {
       return item.id === pokemon.id;
     });
 
-    if (isAlreadySelectedOne) {
+    if (isSelected) {
       alert(`이미 보유한 포켓몬입니다.`);
       return;
     }
 
     if (selectedPokemon.length >= 6) {
-      alert(`포켓몬은 최대 여섯마리까지 선택 할 수 있어요.`);
+      alert(`포켓몬은 최대 6마리까지 선택 할 수 있어요.`);
       return;
     }
 
     setSelectedPokemon([...selectedPokemon, pokemon]);
+  };
+
+  // 포켓몬 대쉬보드에서 삭제
+  const handleRemovePokemon = (id) => {
+    setSelectedPokemon((prevList) =>
+      prevList.filter((pokemon) => pokemon.id !== id)
+    );
   };
 
   return (
@@ -29,13 +36,13 @@ const Dex = () => {
       <div>
         <h1>나만의 포켓몬</h1>
         <ul>
-          {selectedPokemon.map((pokemon, idx) => {
+          {selectedPokemon.map((item, idx) => {
             return (
               <li key={idx}>
-                <img src={pokemon.img_url} alt={pokemon.korean_name} />
-                <h3>{pokemon.korean_name}</h3>
-                <p>no.{pokemon.id}</p>
-                <button onClick={() => handleRemovePokemon(pokemon.id)}>
+                <img src={item.img_url} alt={item.korean_name} />
+                <h3>{item.korean_name}</h3>
+                <p>no.{item.id}</p>
+                <button onClick={() => handleRemovePokemon(item.id)}>
                   - del
                 </button>
               </li>
@@ -50,6 +57,7 @@ const Dex = () => {
                     width: "50px",
                   }}
                   src="src/assets/pokeball.png"
+                  alt="empty slot"
                 />
               </li>
             );
