@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import MOCK_DATA from "../data/MOCK_DATA";
 
 const Dex = () => {
@@ -23,13 +23,38 @@ const Dex = () => {
     setSelectedPokemon([...selectedPokemon, pokemon]);
   };
 
-  
   return (
     <div>
       {/* 대쉬보드 (6장) */}
       <div>
         <h1>나만의 포켓몬</h1>
-        <ul></ul>
+        <ul>
+          {selectedPokemon.map((pokemon, idx) => {
+            return (
+              <li key={idx}>
+                <img src={pokemon.img_url} alt={pokemon.korean_name} />
+                <h3>{pokemon.korean_name}</h3>
+                <p>no.{pokemon.id}</p>
+                <button onClick={() => handleRemovePokemon(pokemon.id)}>
+                  - del
+                </button>
+              </li>
+            );
+          })}
+
+          {new Array(6 - selectedPokemon.length).fill(null).map((_, idx) => {
+            return (
+              <li key={idx}>
+                <img
+                  style={{
+                    width: "50px",
+                  }}
+                  src="src/assets/pokeball.png"
+                />
+              </li>
+            );
+          })}
+        </ul>
       </div>
 
       {/* 포켓몬 리스트 */}
