@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import MOCK_DATA from "../data/MOCK_DATA";
 
 const Dex = () => {
   const [selectedPokemon, setSelectedPokemon] = useState([]);
+  const navigate = useNavigate();
 
   // ✅ 포켓몬 대쉬보드에 추가
   const handleAddPokemon = (pokemon) => {
@@ -70,7 +72,10 @@ const Dex = () => {
       <PokemonListWrapper>
         {MOCK_DATA.map((data) => {
           return (
-            <PokemonCard key={data.id}>
+            <PokemonCard
+              key={data.id}
+              onClick={() => navigate(`/detail?id=${data.id}`)}
+            >
               <img src={data.img_url} alt={data.korean_name} />
               <h3>{data.korean_name}</h3>
               <p>no.{data.id}</p>
