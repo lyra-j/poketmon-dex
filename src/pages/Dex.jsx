@@ -1,16 +1,29 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import MOCK_DATA from "../data/MOCK_DATA";
 
 const Dex = () => {
-  const [selectedPokemon, setSelectedPokemon] = useState([]);
+  const [selectedPokemon, setSelectedPokemon] = useState(() => {
+    const storedPokemon = localStorage.getItem("myPokemon");
+    return storedPokemon ? JSON.parse(storedPokemon) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("myPokemon", JSON.stringify(selectedPokemon));
+  }, [selectedPokemon]);
+
+  
+  const pokemonData = MOCK_DATA;
   const navigate = useNavigate();
 
   // ✅ 포켓몬 대쉬보드에 추가
   const handleAddPokemon = (pokemon) => {
+    // e.stopPropagation();
+
     const isSelected = selectedPokemon.find((item) => {
-      return item.id === pokemon.id;
+      return item.id === pokemon.id; // true
     });
 
     if (isSelected) {
@@ -24,6 +37,7 @@ const Dex = () => {
     }
 
     setSelectedPokemon([...selectedPokemon, pokemon]);
+
   };
 
   // ✅ 포켓몬 대쉬보드에서 삭제
@@ -79,7 +93,14 @@ const Dex = () => {
               <img src={data.img_url} alt={data.korean_name} />
               <h3>{data.korean_name}</h3>
               <p>no.{data.id}</p>
-              <button onClick={() => handleAddPokemon(data)}>+ add</button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleAddPokemon(data);
+                }}
+              >
+                + add
+              </button>
             </PokemonCard>
           );
         })}
