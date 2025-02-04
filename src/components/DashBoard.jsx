@@ -1,25 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import PokemonCard from "./PokemonCard";
 
-const DashBoard = ({
-  selectedPokemon,
-  setSelectedPokemon,
-  handleRemovePokemon,
-}) => {
+const DashBoard = ({ selectedPokemon, handleRemovePokemon }) => {
   return (
     <DashBoardWrapper>
       <MyPokemonTitle>나만의 포켓몬</MyPokemonTitle>
-      <MyPokemonCardBox>
-        {selectedPokemon.map((item, idx) => {
+      <MyPokemonCardContainer>
+        {selectedPokemon.map((data, idx) => {
           return (
-            <MyPokemonCard key={idx}>
-              <img src={item.img_url} alt={item.korean_name} />
-              <h3>{item.korean_name}</h3>
-              <p>no.{item.id}</p>
-              <button onClick={() => handleRemovePokemon(item.id)}>
-                - del
-              </button>
-            </MyPokemonCard>
+            <PokemonCard
+              key={idx}
+              data={data}
+              handleRemovePokemon={handleRemovePokemon}
+            />
           );
         })}
 
@@ -28,7 +22,7 @@ const DashBoard = ({
             <MonsterBall key={idx}>
               <img
                 style={{
-                  width: "50px",
+                  width: "40px",
                 }}
                 src="src/assets/pokeball.png"
                 alt="empty slot"
@@ -36,7 +30,7 @@ const DashBoard = ({
             </MonsterBall>
           );
         })}
-      </MyPokemonCardBox>
+      </MyPokemonCardContainer>
     </DashBoardWrapper>
   );
 };
@@ -60,7 +54,7 @@ const MyPokemonTitle = styled.h1`
   margin: 40px;
 `;
 
-const MyPokemonCardBox = styled.ul`
+const MyPokemonCardContainer = styled.ul`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 20px;
@@ -69,25 +63,22 @@ const MyPokemonCardBox = styled.ul`
   margin-bottom: 10px;
 `;
 
-const MyPokemonCard = styled.li`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.3);
-  border-radius: 15px;
-  width: 150px;
-  height: 200px;
-`;
-
 const MonsterBall = styled.li`
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   background-color: rgb(255, 255, 255);
-  border: 2px dashed rgb(204, 204, 204);
+  border: 2px dashed rgb(209, 209, 209);
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
 `;
+
+// <MyPokemonCard key={idx}>
+//   <img src={data.img_url} alt={data.korean_name} />
+//   <h3>{data.korean_name}</h3>
+//   <p>no.{data.id}</p>
+//   <button onClick={() => handleRemovePokemon(data.id)}>
+//     - del
+//   </button>
+// </MyPokemonCard>

@@ -18,6 +18,27 @@ const Dex = () => {
 
   const pokemonData = MOCK_DATA;
 
+  // ✅ 포켓몬 대쉬보드에 추가
+  const handleAddPokemon = (pokemon) => {
+    // e.stopPropagation();
+
+    const isSelected = selectedPokemon.find((item) => {
+      return item.id === pokemon.id; // true
+    });
+
+    if (isSelected) {
+      alert(`이미 보유한 포켓몬입니다.`);
+      return;
+    }
+
+    if (selectedPokemon.length >= 6) {
+      alert(`포켓몬은 최대 6마리까지 선택 할 수 있어요.`);
+      return;
+    }
+
+    setSelectedPokemon([...selectedPokemon, { ...pokemon, isSelected: true }]);
+  };
+
   // ✅ 포켓몬 대쉬보드에서 삭제
   const handleRemovePokemon = (id) => {
     setSelectedPokemon((prevList) =>
@@ -30,15 +51,11 @@ const Dex = () => {
       {/* 대쉬보드 (6장) */}
       <DashBoard
         selectedPokemon={selectedPokemon}
-        setSelectedPokemon={selectedPokemon}
         handleRemovePokemon={handleRemovePokemon}
       />
 
       {/* 포켓몬 리스트 */}
-      <PokemonList
-        selectedPokemon={selectedPokemon}
-        setSelectedPokemon={setSelectedPokemon}
-      />
+      <PokemonList handleAddPokemon={handleAddPokemon} />
     </DexWrapper>
   );
 };

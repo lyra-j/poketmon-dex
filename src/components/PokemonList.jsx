@@ -3,27 +3,8 @@ import styled from "styled-components";
 import MOCK_DATA from "../data/MOCK_DATA";
 import PokemonCard from "./PokemonCard";
 
-const PokemonList = ({ selectedPokemon, setSelectedPokemon }) => {
-  // ✅ 포켓몬 대쉬보드에 추가
-  const handleAddPokemon = (pokemon) => {
-    // e.stopPropagation();
+const PokemonList = ({ handleAddPokemon }) => {
 
-    const isSelected = selectedPokemon.find((item) => {
-      return item.id === pokemon.id; // true
-    });
-
-    if (isSelected) {
-      alert(`이미 보유한 포켓몬입니다.`);
-      return;
-    }
-
-    if (selectedPokemon.length >= 6) {
-      alert(`포켓몬은 최대 6마리까지 선택 할 수 있어요.`);
-      return;
-    }
-
-    setSelectedPokemon([...selectedPokemon, pokemon]);
-  };
 
   return (
     <PokemonListWrapper>
@@ -32,6 +13,7 @@ const PokemonList = ({ selectedPokemon, setSelectedPokemon }) => {
           data={data}
           key={data.id}
           handleAddPokemon={handleAddPokemon}
+          isSelected="false"
         />
       ))}
     </PokemonListWrapper>

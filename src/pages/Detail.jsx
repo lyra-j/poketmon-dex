@@ -1,12 +1,11 @@
 import React from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import MOCK_DATA from "../data/MOCK_DATA";
 
 const Detail = () => {
+  const navigate = useNavigate();
   const [params, setParams] = useSearchParams();
   const pokemonId = params.get("id");
-  // const param = useParams();
-  const navigate = useNavigate();
 
   const selectPokemon = MOCK_DATA.find((data) => {
     return data.id === +pokemonId;
