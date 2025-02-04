@@ -46,7 +46,7 @@ const BigButton = styled.button`
 
   &:hover {
     background-color: #d12c2c;
-    transition: 0.5s;
+    transition: 0.3s;
     cursor: pointer;
   }
 `;
