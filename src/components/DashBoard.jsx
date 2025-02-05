@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 
-const DashBoard = ({ selectedPokemon, setSelectedPokemon }) => {
+const DashBoard = ({ selectedPokemon, handleRemovePokemon }) => {
   return (
     <DashBoardWrapper>
       <MyPokemonTitle>나만의 포켓몬</MyPokemonTitle>
@@ -12,8 +12,7 @@ const DashBoard = ({ selectedPokemon, setSelectedPokemon }) => {
             <PokemonCard
               key={idx}
               data={data}
-              selectedPokemon={selectedPokemon}
-              setSelectedPokemon={setSelectedPokemon}
+              handleRemovePokemon={handleRemovePokemon}
             />
           );
         })}

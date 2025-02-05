@@ -2,49 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const PokemonCard = ({
-  data,
-  isSelected,
-  selectedPokemon,
-  setSelectedPokemon,
-}) => {
+const PokemonCard = ({ data, handleAddPokemon, handleRemovePokemon }) => {
+  // ✅ 선택한 포켓몬의 상세페이지로 연결시켜주는 주소
   const navigate = useNavigate();
   const goToPokemonDetail = () => {
     navigate(`/detail?id=${data.id}`);
-  };
-
-  // ✅ 포켓몬 대쉬보드에 추가
-  const handleAddPokemon = (e) => {
-    e.stopPropagation();
-
-    if (
-      selectedPokemon.find((selectPokemon) => {
-        return selectPokemon.id === data.id;
-      })
-    ) {
-      alert(`${data.korean_name}, 이미 보유한 포켓몬입니다.`);
-      return;
-    }
-
-    if (selectedPokemon.length >= 6) {
-      alert(`포켓몬은 최대 6마리까지 선택 할 수 있어요.`);
-      return;
-    }
-
-    setSelectedPokemon([...selectedPokemon, { ...data, isSelected: true }]);
-    alert(`${data.korean_name}이 추가되었습니다.`);
-  };
-
-  // ✅ 포켓몬 대쉬보드에서 삭제
-  const handleRemovePokemon = (e) => {
-    e.stopPropagation();
-
-    const removePokemon = selectedPokemon.filter(
-      (selectPokemon) => selectPokemon.id !== data.id
-    );
-    setSelectedPokemon(removePokemon);
-    isSelected = false;
-    alert(`${data.korean_name}이 삭제되었습니다.`);
   };
 
   return (
@@ -52,11 +14,28 @@ const PokemonCard = ({
       <PokemonCardImage src={data.img_url} alt={data.korean_name} />
       <PokemonCardName>{data.korean_name}</PokemonCardName>
       <PokemonCardNum>no.{data.id}</PokemonCardNum>
-      {isSelected ? (
-        <ToggleButton onClick={handleAddPokemon}>+ add</ToggleButton>
-      ) : (
-        <ToggleButton onClick={handleRemovePokemon}>- del</ToggleButton>
-      )}
+      <ButtonWrapper>
+        {/* 추가/삭제 버튼 설정 */}
+        {data.isSelected ? (
+          <ToggleButton
+            onClick={(e) => {
+              e.stopPropagation();
+              handleRemovePokemon(data);
+            }}
+          >
+            - del
+          </ToggleButton>
+        ) : (
+          <ToggleButton
+            onClick={(e) => {
+              e.stopPropagation();
+              handleAddPokemon(data);
+            }}
+          >
+            + add
+          </ToggleButton>
+        )}
+      </ButtonWrapper>
     </StPokemonCard>
   );
 };
@@ -72,6 +51,12 @@ const StPokemonCard = styled.li`
   box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   padding: 20px;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-6px);
+  }
+  transition: all 0.3s;
 `;
 
 const PokemonCardImage = styled.img`
@@ -89,6 +74,8 @@ const PokemonCardNum = styled.p`
   color: grey;
   margin: 10px 0px;
 `;
+
+const ButtonWrapper = styled.div``;
 const ToggleButton = styled.button`
   background-color: red;
   color: white;

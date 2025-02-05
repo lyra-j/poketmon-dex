@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import MOCK_DATA from "../data/MOCK_DATA";
 
-const Detail = () => {
+const Detail = ({ selectedPokemon, handleAddPokemon, handleRemovePokemon }) => {
   const navigate = useNavigate();
   const [params, setParams] = useSearchParams();
   const pokemonId = params.get("id");
@@ -22,6 +22,16 @@ const Detail = () => {
       <DetailDscription>타입 : {selectPokemon.types}</DetailDscription>
       <DetailDscription>{selectPokemon.description}</DetailDscription>
       <StButton onClick={() => navigate("/dex")}>돌아가기</StButton>
+
+      {selectedPokemon.find((pokemon) => pokemon.id === selectPokemon.id) ? (
+        <ToggleButton onClick={() => handleRemovePokemon(selectPokemon)}>
+          - del
+        </ToggleButton>
+      ) : (
+        <ToggleButton onClick={() => handleAddPokemon(selectPokemon)}>
+          + add
+        </ToggleButton>
+      )}
     </DetailWrapper>
   );
 };
@@ -65,4 +75,16 @@ const StButton = styled.button`
     transition: 0.3s;
     cursor: pointer;
   }
+`;
+
+const ButtonWrapper = styled.div``;
+const ToggleButton = styled.button`
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  padding: 6px 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
 `;
