@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import { PokemonContext } from "../context/PokemonContext";
 import MOCK_DATA from "../data/MOCK_DATA";
 
-const Detail = ({ selectedPokemon, handleAddPokemon, handleRemovePokemon }) => {
+const Detail = () => {
+  const { selectedPokemon, handleAddPokemon, handleRemovePokemon } =
+    useContext(PokemonContext);
   const navigate = useNavigate();
   const [params, setParams] = useSearchParams();
   const pokemonId = params.get("id");

@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { PokemonContext } from "../context/PokemonContext";
 
-const PokemonCard = ({ data, handleAddPokemon, handleRemovePokemon }) => {
+const PokemonCard = ({ data }) => {
+  const { handleAddPokemon, handleRemovePokemon } = useContext(PokemonContext);
+
   // ✅ 선택한 포켓몬의 상세페이지로 연결시켜주는 주소
   const navigate = useNavigate();
   const goToPokemonDetail = () => {

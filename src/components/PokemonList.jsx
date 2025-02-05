@@ -3,15 +3,11 @@ import styled from "styled-components";
 import MOCK_DATA from "../data/MOCK_DATA";
 import PokemonCard from "./PokemonCard";
 
-const PokemonList = ({ handleAddPokemon }) => {
+const PokemonList = () => {
   return (
     <PokemonListWrapper>
       {MOCK_DATA.map((data) => (
-        <PokemonCard
-          key={data.id}
-          data={data}
-          handleAddPokemon={handleAddPokemon}
-        />
+        <PokemonCard key={data.id} data={data} />
       ))}
     </PokemonListWrapper>
   );

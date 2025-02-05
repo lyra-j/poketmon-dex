@@ -1,20 +1,16 @@
-import React from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
+import { PokemonContext } from "../context/PokemonContext";
 
-const DashBoard = ({ selectedPokemon, handleRemovePokemon }) => {
+const DashBoard = () => {
+  const { selectedPokemon } = useContext(PokemonContext);
   return (
     <DashBoardWrapper>
       <MyPokemonTitle>나만의 포켓몬</MyPokemonTitle>
       <MyPokemonCardContainer>
         {selectedPokemon.map((data, idx) => {
-          return (
-            <PokemonCard
-              key={idx}
-              data={data}
-              handleRemovePokemon={handleRemovePokemon}
-            />
-          );
+          return <PokemonCard key={idx} data={data} />;
         })}
 
         {new Array(6 - selectedPokemon.length).fill(null).map((_, idx) => {
