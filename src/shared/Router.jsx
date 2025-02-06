@@ -12,7 +12,7 @@ const Router = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dex" element={<Dex />} />
-          <Route path="/detail" element={<Detail />} />
+          <Route path="/dex/detail" element={<Detail />} />
         </Routes>
       </BrowserRouter>
     </PokemonProvier>
