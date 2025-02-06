@@ -1,25 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
+import MOCK_DATA from "../data/MOCK_DATA";
 
+// 초기값 설정
 const initialState = {
+  pokemonData: MOCK_DATA,
   selectedPokemon: localStorage.getItem("myPokemon")
-    ? JSON.parse(storedPokemon)
+    ? JSON.parse(localStorage.getItem("myPokemon"))
     : [],
 };
 
+// 슬라이스 만들기
 const pokemonSlice = createSlice({
   name: "pokemon",
   initialState,
   reducers: {
     // ✅ 포켓몬 대쉬보드에 추가
-    handleAddPokemon: (state, action) => {
+    addMyPokemon: (state, action) => {
       const addPokemon = [
         ...state.selectedPokemon,
-        { ...payload, isSelected: true },
+        { ...action.payload, isSelected: true },
       ];
-
       // 이미 대시보드에 등록한 포켓몬인지 확인
       if (state.selectedPokemon.find((item) => item.id === action.payload.id)) {
-        alert(`${payload.korean_name}, 이미 보유한 포켓몬입니다.`);
+        alert(`${action.payload.korean_name}, 이미 보유한 포켓몬입니다.`);
         return;
       }
 
@@ -30,17 +33,21 @@ const pokemonSlice = createSlice({
       }
 
       state.selectedPokemon = addPokemon;
+      localStorage.setItem("myPokemon", JSON.stringify(addPokemon));
 
-      alert(`${payload.korean_name}이 추가되었습니다.`);
+      alert(`${action.payload.korean_name}이 추가되었습니다.`);
       return;
     },
 
     // ✅ 포켓몬 대쉬보드에서 삭제
-    handleRemovePokemon: (state, action) => {
+    removeMyPokemon: (state, action) => {
       const removePokemon = state.selectedPokemon.filter(
         (item) => item.id !== action.payload.id
       );
+
       state.selectedPokemon = removePokemon;
+      localStorage.setItem("myPokemon", JSON.stringify(removePokemon));
+
       alert(`${action.payload.korean_name}이 삭제되었습니다.`);
       return;
     },
@@ -48,4 +55,4 @@ const pokemonSlice = createSlice({
 });
 
 export default pokemonSlice.reducer;
-export const { handleAddPokemon, handleRemovePokemon } = pokemonSlice.actions;
+export const { addMyPokemon, removeMyPokemon } = pokemonSlice.actions;
