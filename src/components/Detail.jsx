@@ -1,19 +1,29 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
-import { PokemonContext } from "../context/PokemonContext";
-import MOCK_DATA from "../data/MOCK_DATA";
+import { removeMyPokemon, addMyPokemon } from "../redux/pokemonSlice";
 
 const Detail = () => {
-  const { selectedPokemon, handleAddPokemon, handleRemovePokemon } =
-    useContext(PokemonContext);
+  const pokemonData = useSelector((state) => state.pokemon.pokemonData);
+  const selectedPokemon = useSelector((state) => state.pokemon.selectedPokemon);
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const [params, setParams] = useSearchParams();
   const pokemonId = params.get("id");
 
-  const selectPokemon = MOCK_DATA.find((data) => {
+  const selectPokemon = pokemonData.find((data) => {
     return data.id === +pokemonId;
   });
+
+  // const handleAddPokemon = (selectPokemon) => {
+  //   dispatch(addMyPokemon(selectPokemon));
+  // };
+
+  // const handleRemovePokemon = (selectPokemon) => {
+  //   dispatch(removeMyPokemon(selectPokemon));
+  // };
 
   return (
     <DetailWrapper>
@@ -27,11 +37,11 @@ const Detail = () => {
       <StButton onClick={() => navigate("/dex")}>돌아가기</StButton>
 
       {selectedPokemon.find((pokemon) => pokemon.id === selectPokemon.id) ? (
-        <ToggleButton onClick={() => handleRemovePokemon(selectPokemon)}>
+        <ToggleButton onClick={() => dispatch(removeMyPokemon(selectPokemon))}>
           - del
         </ToggleButton>
       ) : (
-        <ToggleButton onClick={() => handleAddPokemon(selectPokemon)}>
+        <ToggleButton onClick={() => dispatch(addMyPokemon(selectPokemon))}>
           + add
         </ToggleButton>
       )}
