@@ -61,7 +61,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/detail/*"
+          path="/dex/detail"
           element={
             <Detail
               selectedPokemon={selectedPokemon}

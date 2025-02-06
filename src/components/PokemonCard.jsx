@@ -6,7 +6,7 @@ const PokemonCard = ({ data, handleAddPokemon, handleRemovePokemon }) => {
   // ✅ 선택한 포켓몬의 상세페이지로 연결시켜주는 주소
   const navigate = useNavigate();
   const goToPokemonDetail = () => {
-    navigate(`/detail?id=${data.id}`);
+    navigate(`/dex/detail?id=${data.id}`);
   };
 
   return (
@@ -19,7 +19,7 @@ const PokemonCard = ({ data, handleAddPokemon, handleRemovePokemon }) => {
         {data.isSelected ? (
           <ToggleButton
             onClick={(e) => {
-              e.stopPropagation();
+              e.stopPropagation(); // 버블링 방지
               handleRemovePokemon(data);
             }}
           >
@@ -28,7 +28,7 @@ const PokemonCard = ({ data, handleAddPokemon, handleRemovePokemon }) => {
         ) : (
           <ToggleButton
             onClick={(e) => {
-              e.stopPropagation();
+              e.stopPropagation(); // 버블링 방지
               handleAddPokemon(data);
             }}
           >
