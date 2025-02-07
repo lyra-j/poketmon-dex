@@ -24,7 +24,9 @@ const Detail = () => {
         alt={selectPokemon.korean_name}
       />
       <DetailTitle>{selectPokemon.korean_name}</DetailTitle>
-      <DetailDscription>타입 : {selectPokemon.types}</DetailDscription>
+      <DetailDscription>
+        타입 : {selectPokemon.types.join(", ")}
+      </DetailDscription>
       <DetailDscription>{selectPokemon.description}</DetailDscription>
       <StButton onClick={() => navigate("/dex")}>돌아가기</StButton>
 

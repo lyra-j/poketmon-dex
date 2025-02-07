@@ -27,7 +27,7 @@ const PokemonCard = ({ data }) => {
     <StPokemonCard onClick={goToPokemonDetail}>
       <PokemonCardImage src={data.img_url} alt={data.korean_name} />
       <PokemonCardName>{data.korean_name}</PokemonCardName>
-      <PokemonCardNum>no.{data.id}</PokemonCardNum>
+      <PokemonCardNum>no.{data.id.toString().padStart(3, "0")}</PokemonCardNum>
 
       {/* 추가/삭제 버튼 설정 */}
       {data.isSelected ? (
