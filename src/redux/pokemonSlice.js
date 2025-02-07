@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import MOCK_DATA from "../data/MOCK_DATA";
+import Swal from "sweetalert2";
 
 // 초기값 설정
 const initialState = {
@@ -22,20 +23,37 @@ const pokemonSlice = createSlice({
       ];
       // 이미 대시보드에 등록한 포켓몬인지 확인
       if (state.selectedPokemon.find((item) => item.id === action.payload.id)) {
-        alert(`${action.payload.korean_name}, 이미 보유한 포켓몬입니다.`);
+        Swal.fire({
+          icon: "error",
+          title: `${action.payload.korean_name}`,
+          text: `이미 소유한 포켓몬입니다.`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
         return;
       }
 
       // 6마리 초과시 알림
       if (state.selectedPokemon.length >= 6) {
-        alert(`포켓몬은 최대 6마리까지 선택 할 수 있어요.`);
+        Swal.fire({
+          icon: "error",
+          title: `몬스터볼을 모두 소진하였습니다.`,
+          text: `다른 포켓몬을 놔주고 다시 선택하세요.`,
+          showConfirmButton: false,
+          timer: 2000,
+        });
         return;
       }
 
       state.selectedPokemon = addPokemon;
       localStorage.setItem("myPokemon", JSON.stringify(addPokemon));
-
-      alert(`${action.payload.korean_name}이 추가되었습니다.`);
+      Swal.fire({
+        icon: "success",
+        title: `${action.payload.korean_name}`,
+        text: `컬렉션에 추가 완료.`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
       return;
     },
 
@@ -47,8 +65,14 @@ const pokemonSlice = createSlice({
 
       state.selectedPokemon = removePokemon;
       localStorage.setItem("myPokemon", JSON.stringify(removePokemon));
-
-      alert(`${action.payload.korean_name}이 삭제되었습니다.`);
+      Swal.fire({
+        // position: "top-end",
+        icon: "success",
+        title: `${action.payload.korean_name}`,
+        text: `컬렉션에서 삭제 완료.`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
       return;
     },
   },

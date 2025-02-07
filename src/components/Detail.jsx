@@ -17,14 +17,6 @@ const Detail = () => {
     return data.id === +pokemonId;
   });
 
-  // const handleAddPokemon = (selectPokemon) => {
-  //   dispatch(addMyPokemon(selectPokemon));
-  // };
-
-  // const handleRemovePokemon = (selectPokemon) => {
-  //   dispatch(removeMyPokemon(selectPokemon));
-  // };
-
   return (
     <DetailWrapper>
       <DetailImage
@@ -90,7 +82,6 @@ const StButton = styled.button`
   }
 `;
 
-const ButtonWrapper = styled.div``;
 const ToggleButton = styled.button`
   background-color: red;
   color: white;
