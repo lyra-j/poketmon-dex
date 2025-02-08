@@ -24,7 +24,8 @@ const pokemonSlice = createSlice({
       // 이미 대시보드에 등록한 포켓몬인지 확인
       if (state.selectedPokemon.find((item) => item.id === action.payload.id)) {
         Swal.fire({
-          icon: "error",
+          imageUrl: `${action.payload.img_url}`,
+          imageHeight: 150,
           title: `${action.payload.korean_name}`,
           text: `이미 소유한 포켓몬입니다.`,
           showConfirmButton: false,
@@ -48,7 +49,8 @@ const pokemonSlice = createSlice({
       state.selectedPokemon = addPokemon;
       localStorage.setItem("myPokemon", JSON.stringify(addPokemon));
       Swal.fire({
-        icon: "success",
+        imageUrl: `${action.payload.img_url}`,
+        imageHeight: 150,
         title: `${action.payload.korean_name}`,
         text: `컬렉션에 추가 완료.`,
         showConfirmButton: false,
@@ -66,7 +68,6 @@ const pokemonSlice = createSlice({
       state.selectedPokemon = removePokemon;
       localStorage.setItem("myPokemon", JSON.stringify(removePokemon));
       Swal.fire({
-        // position: "top-end",
         icon: "success",
         title: `${action.payload.korean_name}`,
         text: `컬렉션에서 삭제 완료.`,

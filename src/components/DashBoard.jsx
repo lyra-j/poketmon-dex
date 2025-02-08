@@ -57,6 +57,7 @@ const MyPokemonCardContainer = styled.ul`
   gap: 20px;
   width: 100%;
   justify-items: center;
+  align-items: center;
   margin-bottom: 10px;
 `;
 
@@ -71,11 +72,3 @@ const MonsterBall = styled.li`
   border-radius: 10px;
 `;
 
-// <MyPokemonCard key={idx}>
-//   <img src={data.img_url} alt={data.korean_name} />
-//   <h3>{data.korean_name}</h3>
-//   <p>no.{data.id}</p>
-//   <button onClick={() => handleRemovePokemon(data.id)}>
-//     - del
-//   </button>
-// </MyPokemonCard>

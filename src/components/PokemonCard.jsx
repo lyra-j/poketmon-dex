@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { removeMyPokemon, addMyPokemon } from "../redux/pokemonSlice";
 
@@ -8,23 +8,25 @@ const PokemonCard = ({ data }) => {
   const dispatch = useDispatch();
 
   // ✅ 선택한 포켓몬의 상세페이지로 연결시켜주는 주소
-  const navigate = useNavigate();
-  const goToPokemonDetail = () => {
-    navigate(`/dex/detail?id=${data.id}`);
-  };
+  // const navigate = useNavigate();
+  // const goToPokemonDetail = () => {
+  //   navigate(`/dex/detail?id=${data.id}`);
+  // };
 
   const handleAddPokemon = (e) => {
-    e.stopPropagation();
+    e.preventDefault();
+    // e.stopPropagation();
     dispatch(addMyPokemon(data));
   };
 
   const handleRemovePokemon = (e) => {
-    e.stopPropagation();
+    e.preventDefault();
+    // e.stopPropagation();
     dispatch(removeMyPokemon(data));
   };
 
   return (
-    <StPokemonCard onClick={goToPokemonDetail}>
+    <CardContainerLink to={`/dex/detail?id=${data.id}`}>
       <PokemonCardImage src={data.img_url} alt={data.korean_name} />
       <PokemonCardName>{data.korean_name}</PokemonCardName>
       <PokemonCardNum>no.{data.id.toString().padStart(3, "0")}</PokemonCardNum>
@@ -35,13 +37,13 @@ const PokemonCard = ({ data }) => {
       ) : (
         <ToggleButton onClick={handleAddPokemon}>+ add</ToggleButton>
       )}
-    </StPokemonCard>
+    </CardContainerLink>
   );
 };
 
 export default PokemonCard;
 
-const StPokemonCard = styled.li`
+const CardContainerLink = styled(Link)`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -65,6 +67,7 @@ const PokemonCardImage = styled.img`
 const PokemonCardName = styled.h3`
   font-size: 14px;
   font-weight: bold;
+  color: #333;
   margin-bottom: 10px;
 `;
 
