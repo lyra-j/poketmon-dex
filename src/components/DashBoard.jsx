@@ -1,9 +1,9 @@
-import { useContext } from "react";
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 import { useSelector } from "react-redux";
 
 const DashBoard = () => {
+  // 대쉬보드에 선택된 포켓몬 state
   const selectedPokemon = useSelector((state) => state.pokemon.selectedPokemon);
 
   return (
@@ -14,6 +14,9 @@ const DashBoard = () => {
           return <PokemonCard key={idx} data={data} />;
         })}
 
+        {/* 1. 전체 길이가 6인 배열을 생성하되 선택된 포켓몬의 길이만큼제외 하고 배열 생성
+            2. 빈 카드 슬롯이란 의미로 'null'로 채움
+            3. 생성된 'null' 만큼 index기준으로 몬스터몰 이미지로 채움  */}
         {new Array(6 - selectedPokemon.length).fill(null).map((_, idx) => {
           return (
             <MonsterBall key={idx}>
@@ -21,7 +24,7 @@ const DashBoard = () => {
                 style={{
                   width: "40px",
                 }}
-                src="src/assets/pokeball.png"
+                src="src/assets/monsterball.png"
                 alt="empty slot"
               />
             </MonsterBall>
@@ -61,6 +64,7 @@ const MyPokemonCardContainer = styled.ul`
   margin-bottom: 10px;
 `;
 
+// 🟩 TODO : img 태그의 크기 지정을 monsterball 안으로 넣어주기
 const MonsterBall = styled.li`
   width: 90px;
   height: 90px;
@@ -71,4 +75,3 @@ const MonsterBall = styled.li`
   justify-content: center;
   border-radius: 10px;
 `;
-

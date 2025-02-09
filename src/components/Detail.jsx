@@ -10,9 +10,12 @@ const Detail = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-  const [params, setParams] = useSearchParams();
-  const pokemonId = params.get("id");
+  // 선택한 포켓몬의 id와 일치하는지 확인만 필요하기 때문에 setSearchParams는 생략
+  const [searchParams] = useSearchParams();
+  const pokemonId = searchParams.get("id");
 
+  // 쿼리스트링에서 받아온 값은 기본적으로 String타입으로
+  // 선택한 포켓몬 id와 엄격한 비교를 위해 +pokemonId,  숫자타입으로 변경
   const selectPokemon = pokemonData.find((data) => {
     return data.id === +pokemonId;
   });
@@ -30,6 +33,7 @@ const Detail = () => {
       <DetailDscription>{selectPokemon.description}</DetailDscription>
       <StButton onClick={() => navigate("/dex")}>돌아가기</StButton>
 
+      {/* 대쉬보드에 선택된 포켓몬인지 판단 후 추가/제거 버튼 표출 */}
       {selectedPokemon.find((pokemon) => pokemon.id === selectPokemon.id) ? (
         <ToggleButton onClick={() => dispatch(removeMyPokemon(selectPokemon))}>
           - del

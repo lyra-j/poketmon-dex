@@ -8,11 +8,7 @@ const Home = () => {
   return (
     <Wrapper>
       <LogoImage src="src/assets/pokemon-logo.png" alt="PekemonDex" />
-      <BigButton
-        onClick={() => {
-          navigate("/dex");
-        }}
-      >
+      <BigButton onClick={() => navigate("/dex")}>
         포켓몬 도감 시작하기
       </BigButton>
     </Wrapper>
@@ -22,18 +18,19 @@ const Home = () => {
 export default Home;
 
 const Wrapper = styled.div`
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100dvh;
+  min-height: 100vh;
 `;
 
 const LogoImage = styled.img`
   height: 260px;
 `;
 
+// 🟩 TODO : 버튼 스타일 수정하기
 const BigButton = styled.button`
   width: 200px;
   height: 50px;

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 
 const PokemonList = () => {
+  // MOCK_DATA 자료 읽어오기
   const pokemonData = useSelector((state) => state.pokemon.pokemonData);
 
   return (

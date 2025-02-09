@@ -8,7 +8,7 @@ const Dex = () => {
       {/* 대쉬보드 (6장) */}
       <DashBoard />
 
-      {/* 포켓몬 리스트 mockdata*/}
+      {/* 포켓몬 리스트 import MOCK_DATA */}
       <PokemonList />
     </DexWrapper>
   );

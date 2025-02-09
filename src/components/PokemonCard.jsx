@@ -1,27 +1,20 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { removeMyPokemon, addMyPokemon } from "../redux/pokemonSlice";
 
 const PokemonCard = ({ data }) => {
   const dispatch = useDispatch();
 
-  // ✅ 선택한 포켓몬의 상세페이지로 연결시켜주는 주소
-  // const navigate = useNavigate();
-  // const goToPokemonDetail = () => {
-  //   navigate(`/dex/detail?id=${data.id}`);
-  // };
 
   const handleAddPokemon = (e) => {
-    e.preventDefault();
-    // e.stopPropagation();
+    e.preventDefault(); // Link to 방지용
     dispatch(addMyPokemon(data));
   };
 
   const handleRemovePokemon = (e) => {
-    e.preventDefault();
-    // e.stopPropagation();
+    e.preventDefault();  // Link to 방지용
     dispatch(removeMyPokemon(data));
   };
 
@@ -31,7 +24,7 @@ const PokemonCard = ({ data }) => {
       <PokemonCardName>{data.korean_name}</PokemonCardName>
       <PokemonCardNum>no.{data.id.toString().padStart(3, "0")}</PokemonCardNum>
 
-      {/* 추가/삭제 버튼 설정 */}
+      {/* 대쉬보드에 선택된 포켓몬인지 isSelected로 확인 후 추가/삭제 버튼 표출 */} 
       {data.isSelected ? (
         <ToggleButton onClick={handleRemovePokemon}>- del</ToggleButton>
       ) : (
