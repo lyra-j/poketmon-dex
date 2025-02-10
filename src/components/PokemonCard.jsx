@@ -1,12 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { removeMyPokemon, addMyPokemon } from "../redux/pokemonSlice";
 
 const PokemonCard = ({ data }) => {
   const dispatch = useDispatch();
-
 
   const handleAddPokemon = (e) => {
     e.preventDefault(); // Link to 방지용
@@ -14,7 +13,7 @@ const PokemonCard = ({ data }) => {
   };
 
   const handleRemovePokemon = (e) => {
-    e.preventDefault();  // Link to 방지용
+    e.preventDefault(); // Link to 방지용
     dispatch(removeMyPokemon(data));
   };
 
@@ -24,11 +23,15 @@ const PokemonCard = ({ data }) => {
       <PokemonCardName>{data.korean_name}</PokemonCardName>
       <PokemonCardNum>no.{data.id.toString().padStart(3, "0")}</PokemonCardNum>
 
-      {/* 대쉬보드에 선택된 포켓몬인지 isSelected로 확인 후 추가/삭제 버튼 표출 */} 
+      {/* 대쉬보드에 선택된 포켓몬인지 isSelected로 확인 후 추가/삭제 버튼 표출 */}
       {data.isSelected ? (
-        <ToggleButton onClick={handleRemovePokemon}>- del</ToggleButton>
+        <ToggleButton $remove onClick={handleRemovePokemon}>
+          - del
+        </ToggleButton>
       ) : (
-        <ToggleButton onClick={handleAddPokemon}>+ add</ToggleButton>
+        <ToggleButton $add onClick={handleAddPokemon}>
+          + add
+        </ToggleButton>
       )}
     </CardContainerLink>
   );
@@ -71,7 +74,6 @@ const PokemonCardNum = styled.p`
 `;
 
 const ToggleButton = styled.button`
-  background-color: red;
   color: white;
   font-size: 12px;
   padding: 6px 10px;
@@ -79,4 +81,24 @@ const ToggleButton = styled.button`
   border-radius: 5px;
   border: none;
   cursor: pointer;
+
+  ${(props) =>
+    props.$remove &&
+    css`
+      background-color: red;
+
+      &:hover {
+        background-color: #d12c2c;
+      }
+    `}
+
+  ${(props) =>
+    props.$add &&
+    css`
+      background-color: #42ac67;
+
+      &:hover {
+        background-color: #317e4c;
+      }
+    `}
 `;

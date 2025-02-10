@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { removeMyPokemon, addMyPokemon } from "../redux/pokemonSlice";
 
 const Detail = () => {
@@ -22,32 +22,30 @@ const Detail = () => {
 
   return (
     <DetailWrapper>
-      <DetailImage
-        src={selectPokemon.img_url}
-        alt={selectPokemon.korean_name}
-      />
-      <DetailTitle>{selectPokemon.korean_name}</DetailTitle>
-      <DetailDscription>
-        타입 : {selectPokemon.types.join(", ")}
-      </DetailDscription>
-      <DetailDscription>{selectPokemon.description}</DetailDscription>
-      <StButton $back onClick={() => navigate("/dex")}>
-        돌아가기
-      </StButton>
+      <img src={selectPokemon.img_url} alt={selectPokemon.korean_name} />
+      <h3>{selectPokemon.korean_name}</h3>
+      <p>타입 : {selectPokemon.types.join(", ")}</p>
+      <p>{selectPokemon.description}</p>
 
-      {/* 대쉬보드에 선택된 포켓몬인지 판단 후 추가/제거 버튼 표출 */}
-      {selectedPokemon.find((pokemon) => pokemon.id === selectPokemon.id) ? (
-        <StButton
-          $remove
-          onClick={() => dispatch(removeMyPokemon(selectPokemon))}
-        >
-          - del
+      <ButtonWrapper>
+        <StButton $back onClick={() => navigate("/dex")}>
+          back
         </StButton>
-      ) : (
-        <StButton $add onClick={() => dispatch(addMyPokemon(selectPokemon))}>
-          + add
-        </StButton>
-      )}
+
+        {/* 대쉬보드에 선택된 포켓몬인지 판단 후 추가/제거 버튼 표출 */}
+        {selectedPokemon.find((pokemon) => pokemon.id === selectPokemon.id) ? (
+          <StButton
+            $remove
+            onClick={() => dispatch(removeMyPokemon(selectPokemon))}
+          >
+            - del
+          </StButton>
+        ) : (
+          <StButton $add onClick={() => dispatch(addMyPokemon(selectPokemon))}>
+            + add
+          </StButton>
+        )}
+      </ButtonWrapper>
     </DetailWrapper>
   );
 };
@@ -62,43 +60,67 @@ const DetailWrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 20px;
+
+  img {
+    width: 200px;
+  }
+
+  h3 {
+    font-size: 24px;
+    color: red;
+    font-weight: 700;
+    margin: 20px;
+  }
+
+  p {
+    margin: 14px;
+  }
 `;
 
-const DetailImage = styled.img`
-  width: 200px;
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 `;
-const DetailTitle = styled.h3`
-  font-size: 24px;
-  color: red;
-  font-weight: 700;
-  margin: 20px;
-`;
-const DetailDscription = styled.p`
-  margin: 14px;
-`;
+
 const StButton = styled.button`
-  background-color: #181818;
   color: white;
-  margin-top: 20px;
+  margin: 20px auto;
   border: none;
   border-radius: 6px;
   font-size: 16px;
   padding: 8px 16px;
   cursor: pointer;
 
-  &:hover {
-    background-color: #474747;
-    transition: 0.3s;
-  }
-`;
+  ${(props) =>
+    props.$remove &&
+    css`
+      background-color: red;
 
-const ToggleButton = styled.button`
-  background-color: red;
-  color: white;
-  font-size: 12px;
-  padding: 6px 10px;
-  margin-top: 10px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
+      &:hover {
+        background-color: #d12c2c;
+      }
+    `}
+
+  ${(props) =>
+    props.$back &&
+    css`
+      background-color: #171717;
+
+      &:hover {
+        background-color: #565656;
+      }
+    `}
+
+  ${(props) =>
+    props.$add &&
+    css`
+      background-color: #42ac67;
+
+      &:hover {
+        background-color: #317e4c;
+      }
+    `}
 `;
