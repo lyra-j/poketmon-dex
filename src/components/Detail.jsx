@@ -22,6 +22,7 @@ const Detail = () => {
     return data.id === +pokemonId;
   });
 
+  // ✅ 포켓몬 대쉬보드에 추가
   const handleAddPokemon = () => {
     // ❔ 이미 대시보드에 등록한 포켓몬인지 확인
     if (selectedPokemon.find((item) => item.id === selectPokemon.id)) {
@@ -60,6 +61,7 @@ const Detail = () => {
     return;
   };
 
+  // ✅ 포켓몬 대쉬보드에서 삭제
   const handleRemovePokemon = () => {
     dispatch(removeMyPokemon(selectPokemon));
     Swal.fire({

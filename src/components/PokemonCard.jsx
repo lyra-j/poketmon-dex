@@ -7,9 +7,12 @@ import { removeMyPokemon, addMyPokemon } from "../redux/pokemonSlice";
 import monsterball from "../assets/monsterball.png";
 
 const PokemonCard = ({ data }) => {
+  // 🔸 { data } : 상위컴포넌트에서 MOCK_DATA.map((data))로 넘겨 받은 값
+
   const selectedPokemon = useSelector((state) => state.pokemon.selectedPokemon);
   const dispatch = useDispatch();
 
+  // ✅ 포켓몬 대쉬보드에 추가
   const handleAddPokemon = (e) => {
     e.preventDefault(); // Link to 방지용
 
@@ -50,8 +53,10 @@ const PokemonCard = ({ data }) => {
     return;
   };
 
+  // ✅ 포켓몬 대쉬보드에서 삭제
   const handleRemovePokemon = (e) => {
     e.preventDefault(); // Link to 방지용
+
     dispatch(removeMyPokemon(data));
     Swal.fire({
       imageUrl: `${monsterball}`,
@@ -68,6 +73,8 @@ const PokemonCard = ({ data }) => {
     <CardContainerLink to={`/dex/detail?id=${data.id}`}>
       <PokemonCardImage src={data.img_url} alt={data.korean_name} />
       <PokemonCardName>{data.korean_name}</PokemonCardName>
+
+      {/* 숫자형식 000 3자리로 맞추기 */}
       <PokemonCardNum>no.{data.id.toString().padStart(3, "0")}</PokemonCardNum>
 
       {/* 대쉬보드에 선택된 포켓몬인지 isSelected로 확인 후 추가/삭제 버튼 표출 */}
