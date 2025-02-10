@@ -31,17 +31,22 @@ const Detail = () => {
         타입 : {selectPokemon.types.join(", ")}
       </DetailDscription>
       <DetailDscription>{selectPokemon.description}</DetailDscription>
-      <StButton onClick={() => navigate("/dex")}>돌아가기</StButton>
+      <StButton $back onClick={() => navigate("/dex")}>
+        돌아가기
+      </StButton>
 
       {/* 대쉬보드에 선택된 포켓몬인지 판단 후 추가/제거 버튼 표출 */}
       {selectedPokemon.find((pokemon) => pokemon.id === selectPokemon.id) ? (
-        <ToggleButton onClick={() => dispatch(removeMyPokemon(selectPokemon))}>
+        <StButton
+          $remove
+          onClick={() => dispatch(removeMyPokemon(selectPokemon))}
+        >
           - del
-        </ToggleButton>
+        </StButton>
       ) : (
-        <ToggleButton onClick={() => dispatch(addMyPokemon(selectPokemon))}>
+        <StButton $add onClick={() => dispatch(addMyPokemon(selectPokemon))}>
           + add
-        </ToggleButton>
+        </StButton>
       )}
     </DetailWrapper>
   );
@@ -72,19 +77,18 @@ const DetailDscription = styled.p`
   margin: 14px;
 `;
 const StButton = styled.button`
-  width: 150px;
-  height: 50px;
   background-color: #181818;
   color: white;
   margin-top: 20px;
   border: none;
-  border-radius: 8px;
-  font-size: 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  padding: 8px 16px;
+  cursor: pointer;
 
   &:hover {
     background-color: #474747;
     transition: 0.3s;
-    cursor: pointer;
   }
 `;
 
