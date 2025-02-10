@@ -4,12 +4,46 @@ import styled from "styled-components";
 import { PokemonContext } from "../context/PokemonContext";
 
 const PokemonCard = ({ data }) => {
-  const { handleAddPokemon, handleRemovePokemon } = useContext(PokemonContext);
+  const { selectedPokemon, setSelectedPokemon } = useContext(PokemonContext);
 
   // ✅ 선택한 포켓몬의 상세페이지로 연결시켜주는 주소
   const navigate = useNavigate();
   const goToPokemonDetail = () => {
     navigate(`/dex/detail?id=${data.id}`);
+  };
+
+  // ✅ 포켓몬 대쉬보드에 추가
+  const handleAddPokemon = (e) => {
+    e.stopPropagation();
+
+    // ❔이미 대시보드에 등록한 포켓몬인지 확인
+    if (
+      selectedPokemon.find((item) => {
+        return item.id === data.id;
+      })
+    ) {
+      alert(`${data.korean_name}, 이미 보유한 포켓몬입니다.`);
+      return;
+    }
+
+    // ❕6마리 초과시 알림
+    if (selectedPokemon.length >= 6) {
+      alert(`포켓몬은 최대 6마리까지 선택 할 수 있어요.`);
+      return;
+    }
+
+    setSelectedPokemon((prev) => [...prev, { ...data, isSelected: true }]);
+    alert(`${data.korean_name}이 추가되었습니다.`);
+    return;
+  };
+
+  // ✅ 포켓몬 대쉬보드에서 삭제
+  const handleRemovePokemon = (e) => {
+    e.stopPropagation();
+
+    setSelectedPokemon((prev) => prev.filter((item) => item.id !== data.id));
+    alert(`${data.korean_name}이 삭제되었습니다.`);
+    return;
   };
 
   return (
@@ -18,25 +52,11 @@ const PokemonCard = ({ data }) => {
       <PokemonCardName>{data.korean_name}</PokemonCardName>
       <PokemonCardNum>no.{data.id}</PokemonCardNum>
       <ButtonWrapper>
-        {/* 추가/삭제 버튼 설정 */}
+        {/* 대쉬보드에 선택된 포켓몬인지 확인 후 추가/삭제 버튼 표출 */}
         {data.isSelected ? (
-          <ToggleButton
-            onClick={(e) => {
-              e.stopPropagation();
-              handleRemovePokemon(data);
-            }}
-          >
-            - del
-          </ToggleButton>
+          <ToggleButton onClick={handleRemovePokemon}>- del</ToggleButton>
         ) : (
-          <ToggleButton
-            onClick={(e) => {
-              e.stopPropagation();
-              handleAddPokemon(data);
-            }}
-          >
-            + add
-          </ToggleButton>
+          <ToggleButton onClick={handleAddPokemon}>+ add</ToggleButton>
         )}
       </ButtonWrapper>
     </StPokemonCard>

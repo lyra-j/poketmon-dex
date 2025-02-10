@@ -5,6 +5,7 @@ import { PokemonContext } from "../context/PokemonContext";
 
 const DashBoard = () => {
   const { selectedPokemon } = useContext(PokemonContext);
+
   return (
     <DashBoardWrapper>
       <MyPokemonTitle>나만의 포켓몬</MyPokemonTitle>
@@ -69,12 +70,3 @@ const MonsterBall = styled.li`
   justify-content: center;
   border-radius: 10px;
 `;
-
-// <MyPokemonCard key={idx}>
-//   <img src={data.img_url} alt={data.korean_name} />
-//   <h3>{data.korean_name}</h3>
-//   <p>no.{data.id}</p>
-//   <button onClick={() => handleRemovePokemon(data.id)}>
-//     - del
-//   </button>
-// </MyPokemonCard>
