@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 import { useSelector } from "react-redux";
+import monsterball from "../assets/monsterball.png";
 
 const DashBoard = () => {
   // 대쉬보드에 선택된 포켓몬 state
@@ -20,7 +21,7 @@ const DashBoard = () => {
         {new Array(6 - selectedPokemon.length).fill(null).map((_, idx) => {
           return (
             <MonsterBall key={idx}>
-              <img src="../src/assets/monsterball.png" alt="empty slot" />
+              <img src={monsterball} alt="empty slot" />
             </MonsterBall>
           );
         })}

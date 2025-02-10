@@ -1,13 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import pokemonlogo from "../assets/pokemon-logo.png";
 
 const Home = () => {
   const navigate = useNavigate();
 
   return (
     <Wrapper>
-      <LogoImage src="../src/assets/pokemon-logo.png" alt="PekemonDex" />
+      <LogoImage src={pokemonlogo} alt="PekemonDex" />
       <Button onClick={() => navigate("/dex")}>포켓몬 도감 시작하기</Button>
     </Wrapper>
   );
