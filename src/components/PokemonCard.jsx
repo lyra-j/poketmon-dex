@@ -16,7 +16,7 @@ const PokemonCard = ({ data }) => {
     // ❔ 이미 대시보드에 등록한 포켓몬인지 확인
     if (selectedPokemon.find((item) => item.id === data.id)) {
       Swal.fire({
-        imageUrl: `${data.img_url}`,
+        icon: "warning",
         imageHeight: 150,
         title: `${data.korean_name}`,
         text: `이미 소유한 포켓몬입니다.`,
