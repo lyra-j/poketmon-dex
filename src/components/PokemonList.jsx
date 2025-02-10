@@ -1,15 +1,12 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import styled from "styled-components";
+import MOCK_DATA from "../data/MOCK_DATA";
 import PokemonCard from "./PokemonCard";
 
 const PokemonList = () => {
-  // MOCK_DATA 자료 읽어오기
-  const pokemonData = useSelector((state) => state.pokemon.pokemonData);
-
   return (
     <PokemonListWrapper>
-      {pokemonData.map((data) => (
+      {MOCK_DATA.map((data) => (
         <PokemonCard key={data.id} data={data} />
       ))}
     </PokemonListWrapper>

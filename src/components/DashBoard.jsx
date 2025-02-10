@@ -20,13 +20,7 @@ const DashBoard = () => {
         {new Array(6 - selectedPokemon.length).fill(null).map((_, idx) => {
           return (
             <MonsterBall key={idx}>
-              <img
-                style={{
-                  width: "40px",
-                }}
-                src="src/assets/monsterball.png"
-                alt="empty slot"
-              />
+              <img src="src/assets/monsterball.png" alt="empty slot" />
             </MonsterBall>
           );
         })}
@@ -64,7 +58,6 @@ const MyPokemonCardContainer = styled.ul`
   margin-bottom: 10px;
 `;
 
-// 🟩 TODO : img 태그의 크기 지정을 monsterball 안으로 넣어주기
 const MonsterBall = styled.li`
   width: 90px;
   height: 90px;
@@ -74,4 +67,8 @@ const MonsterBall = styled.li`
   align-items: center;
   justify-content: center;
   border-radius: 10px;
+
+  img {
+    width: 40px;
+  }
 `;

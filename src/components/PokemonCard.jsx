@@ -1,20 +1,66 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
+import Swal from "sweetalert2";
 import { removeMyPokemon, addMyPokemon } from "../redux/pokemonSlice";
 
 const PokemonCard = ({ data }) => {
+  const selectedPokemon = useSelector((state) => state.pokemon.selectedPokemon);
   const dispatch = useDispatch();
 
   const handleAddPokemon = (e) => {
     e.preventDefault(); // Link to 방지용
+
+    // ❔ 이미 대시보드에 등록한 포켓몬인지 확인
+    if (selectedPokemon.find((item) => item.id === data.id)) {
+      Swal.fire({
+        imageUrl: `${data.img_url}`,
+        imageHeight: 150,
+        title: `${data.korean_name}`,
+        text: `이미 소유한 포켓몬입니다.`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
+
+    // ❕ 6마리 초과시 알림
+    if (selectedPokemon.length >= 6) {
+      Swal.fire({
+        icon: "error",
+        title: `몬스터볼을 모두 소진하였습니다.`,
+        text: `다른 포켓몬을 놔주고 다시 선택하세요.`,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      return;
+    }
+
     dispatch(addMyPokemon(data));
+    Swal.fire({
+      imageUrl: `${data.img_url}`,
+      imageHeight: 150,
+      title: `${data.korean_name}`,
+      text: `컬렉션에 추가 완료.`,
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    return;
   };
 
   const handleRemovePokemon = (e) => {
     e.preventDefault(); // Link to 방지용
     dispatch(removeMyPokemon(data));
+    Swal.fire({
+      imageUrl: `src/assets/monsterball.png`,
+      imageHeight: 100,
+      title: `${data.korean_name}`,
+      text: `컬렉션에서 삭제 완료.`,
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    return;
   };
 
   return (
