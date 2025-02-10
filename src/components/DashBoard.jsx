@@ -20,7 +20,7 @@ const DashBoard = () => {
         {new Array(6 - selectedPokemon.length).fill(null).map((_, idx) => {
           return (
             <MonsterBall key={idx}>
-              <img src="./src/assets/monsterball.png" alt="empty slot" />
+              <img src="../src/assets/monsterball.png" alt="empty slot" />
             </MonsterBall>
           );
         })}
