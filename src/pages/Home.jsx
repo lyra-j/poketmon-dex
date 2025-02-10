@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import pokemonlogo from "../assets/pokemon-logo.png";
+import pokemonlogo from "../assets/pokemonlogo.png";
 
 const Home = () => {
   const navigate = useNavigate();
