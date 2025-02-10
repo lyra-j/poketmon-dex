@@ -7,7 +7,7 @@ const Home = () => {
 
   return (
     <Wrapper>
-      <LogoImage src="src/assets/pokemon-logo.png" alt="PekemonDex" />
+      <LogoImage src="./src/assets/pokemon-logo.png" alt="PekemonDex" />
       <Button onClick={() => navigate("/dex")}>포켓몬 도감 시작하기</Button>
     </Wrapper>
   );
