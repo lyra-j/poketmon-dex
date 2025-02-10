@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import Swal from "sweetalert2";
 import { removeMyPokemon, addMyPokemon } from "../redux/pokemonSlice";
+import monsterball from "../assets/monsterball.png";
 
 const PokemonCard = ({ data }) => {
   const selectedPokemon = useSelector((state) => state.pokemon.selectedPokemon);
@@ -53,7 +54,7 @@ const PokemonCard = ({ data }) => {
     e.preventDefault(); // Link to 방지용
     dispatch(removeMyPokemon(data));
     Swal.fire({
-      imageUrl: `src/assets/monsterball.png`,
+      imageUrl: `${monsterball}`,
       imageHeight: 100,
       title: `${data.korean_name}`,
       text: `컬렉션에서 삭제 완료.`,

@@ -5,6 +5,7 @@ import styled, { css } from "styled-components";
 import Swal from "sweetalert2";
 import MOCK_DATA from "../data/MOCK_DATA";
 import { removeMyPokemon, addMyPokemon } from "../redux/pokemonSlice";
+import monsterball from "../assets/monsterball.png";
 
 const Detail = () => {
   const selectedPokemon = useSelector((state) => state.pokemon.selectedPokemon);
@@ -62,7 +63,7 @@ const Detail = () => {
   const handleRemovePokemon = () => {
     dispatch(removeMyPokemon(selectPokemon));
     Swal.fire({
-      imageUrl: `src/assets/monsterball.png`,
+      imageUrl: `${monsterball}`,
       imageHeight: 100,
       title: `${selectPokemon.korean_name}`,
       text: `컬렉션에서 삭제 완료.`,
