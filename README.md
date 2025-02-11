@@ -35,6 +35,7 @@
 - [Path Parameter만 알려주셨는데요!?](https://velog.io/@ly-ra/TIL-동적라우팅-패스파라미터-쿼리스트링)
 - [RTK 리팩토링, import 주의보!](https://velog.io/@ly-ra/TIL-RTK-refactoring)
 - [과제 발제를 보면서 예상했다..버블버블](https://velog.io/@ly-ra/TIL-버블버블-e.stopPropagation-vs-e.preventDefault)
+- [배포완료? 끝날때까지 끝난게 아니다!](https://velog.io/@ly-ra/TIL-vercel-배포-딸깍-주의-사항)
 
 <br />
 
